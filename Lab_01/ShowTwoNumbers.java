@@ -1,4 +1,4 @@
-// Example 5: ShowTwoNumbers.java
+// Example 4: ShowTwoNumbers.java
 import javax.swing.JOptionPane;
 public class ShowTwoNumbers {
     public static void main(String[] args){
