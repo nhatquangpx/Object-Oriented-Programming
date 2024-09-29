@@ -13,5 +13,6 @@ public class InputFromKeyboard{
 
         System.out.println("Doan Nhat Quang - 5911 - Mrs/Mr. " + strName + ", " + iAge + " years old. " + "Your height is " + dHeight + "." );
 
+        keyboard.close();
     }
 }
