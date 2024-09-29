@@ -1,3 +1,4 @@
+// Example 6: EquationSolver.java
 import java.util.Scanner;
 
 public class EquationSolver {
