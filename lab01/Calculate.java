@@ -5,8 +5,10 @@ public class Calculate {
         String strNum1, strNum2;
         String strNotification = "Doan Nhat Quang - 5911 - The results are: ";
 
-        strNum1 = JOptionPane.showInputDialog(null, "Doan Nhat Quang - 5911 - Please input the first number: ","Doan Nhat Quang - 5911 - Input the first number", JOptionPane.INFORMATION_MESSAGE);
-        strNum2 = JOptionPane.showInputDialog(null, "Doan Nhat Quang - 5911 - Please input the second number: ","Doan Nhat Quang - 5911 - Input the second number", JOptionPane.INFORMATION_MESSAGE);
+        strNum1 = JOptionPane.showInputDialog(null, 
+        "Doan Nhat Quang - 5911 - Please input the first number: ","Doan Nhat Quang - 5911 - Input the first number", JOptionPane.INFORMATION_MESSAGE);
+        strNum2 = JOptionPane.showInputDialog(null, 
+        "Doan Nhat Quang - 5911 - Please input the second number: ","Doan Nhat Quang - 5911 - Input the second number", JOptionPane.INFORMATION_MESSAGE);
 
         double num1 = Double.parseDouble(strNum1);
         double num2 = Double.parseDouble(strNum2);

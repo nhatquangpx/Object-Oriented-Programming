@@ -11,7 +11,7 @@ public class InputFromKeyboard{
         System.err.println("Doan Nhat Quang - 5911 - How tall are you (m)?");
         double dHeight = keyboard.nextDouble();
 
-        System.out.println("Doan Nhat Quang - 5911 - Mrs/Mr. " + strName + ", " + iAge + " years old. " + "Your height is " + dHeight + "." );
+        System.out.println("Doan Nhat Quang - 5911 - Mrs/Mr. " + strName + ", " + iAge + " years old. " + "Your height is " + dHeight + " m." );
 
         keyboard.close();
     }
