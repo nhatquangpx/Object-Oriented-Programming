@@ -72,7 +72,7 @@ public class Cart {
 	        }
 	        return total;
 	    }
-	 // Method to print Cart
+		 // Method to print Cart
 	    public void print() {
 	        System.out.println("***********************CART***********************");
 	        System.out.println("Doan Nhat Quang - 5911 - Ordered Items:");
@@ -84,24 +84,5 @@ public class Cart {
 	        System.out.println("Doan Nhat Quang - 5911 - Total cost: " + totalCost() + " $");
 	        System.out.println("***************************************************");
 	    }
-	 // Search by ID
-	    public DigitalVideoDisc searchById(int id) {
-	        for (int i = 0; i < qtyOrdered; i++) {
-	            if (itemsOrdered[i].getId() == id) {
-	                return itemsOrdered[i];
-	            }
-	        }
-	        return null; 
-	    }
-	 // Tìm kiếm DVD theo tiêu đề
-	    public DigitalVideoDisc searchByTitle(String title) {
-	        for (int i = 0; i < qtyOrdered; i++) {
-	            if (itemsOrdered[i].isMatch(title)) {
-	                return itemsOrdered[i];
-	            }
-	        }
-	        return null; // Không tìm thấy
-	    }
-
 
 }
