@@ -72,5 +72,17 @@ public class Cart {
 	        }
 	        return total;
 	    }
+	 // Method to print Cart
+	    public void print() {
+	        System.out.println("***********************CART***********************");
+	        System.out.println("Doan Nhat Quang - 5911 - Ordered Items:");
+
+	        for (int i = 0; i < qtyOrdered; i++) {
+	            System.out.println((i + 1) + ". " + itemsOrdered[i].toString());
+	        }
+
+	        System.out.println("Doan Nhat Quang - 5911 - Total cost: " + totalCost() + " $");
+	        System.out.println("***************************************************");
+	    }
 
 }
