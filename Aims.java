@@ -4,7 +4,14 @@ public class Aims {
     public static void main(String[] args) {
         // Create a new cart
         Cart anOrder = new Cart();
-
+        
+//        DigitalVideoDisc dvd1 = new DigitalVideoDisc("Action", "Jungle", 20.5f);
+//        DigitalVideoDisc dvd2 = new DigitalVideoDisc("Adventure", "Cinderella", 15.0f);
+//
+//        System.out.println("Doan Nhat Quang - 5911 - DVD 1 ID: " + dvd1.getId()); // Output: DVD 1 ID: 1
+//        System.out.println("Doan Nhat Quang - 5911 - DVD 2 ID: " + dvd2.getId()); // Output: DVD 2 ID: 2
+//        System.out.println("Doan Nhat Quang - 5911 - Total DVDs: " + DigitalVideoDisc.getNbDigitalVideoDiscs());
+        
         // Create new dvd objects and add them to the cart
         DigitalVideoDisc dvd1 = new DigitalVideoDisc("The Lion King", "Animation", "Roger Allers", 87, 19.95f);
         anOrder.addDigitalVideoDisc(dvd1);
