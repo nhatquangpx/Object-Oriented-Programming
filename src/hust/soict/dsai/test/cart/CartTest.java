@@ -1,43 +1,35 @@
 package hust.soict.dsai.test.cart;
 
 import hust.soict.dsai.aims.cart.Cart;
-import hust.soict.dsai.aims.disc.DigitalVideoDisc;
+import hust.soict.dsai.aims.media.Book;
+import hust.soict.dsai.aims.media.CompactDisc;
+import hust.soict.dsai.aims.media.DigitalVideoDisc;
+import hust.soict.dsai.aims.media.Media;
 
 public class CartTest {
     public static void main(String[] args) {
-        // Tạo giỏ hàng
         Cart cart = new Cart();
 
-        // Tạo DVD
-        DigitalVideoDisc dvd1 = new DigitalVideoDisc("Animation", "The Lion King", "Roger Allers", 87, 19.95f);
-        DigitalVideoDisc dvd2 = new DigitalVideoDisc("Science Fiction", "Star Wars", "George Lucas", 87, 24.95f);
-        DigitalVideoDisc dvd3 = new DigitalVideoDisc("Animation", "Aladin", 18.99f);
+        // Create instances of Media
+        DigitalVideoDisc dvd = new DigitalVideoDisc("Movie 1", "Action", "Director 1", 120, 20.5f);
+        CompactDisc cd = new CompactDisc(1, "Album 1", "Music", "Artist 1", 15.0f, 50, "Director 2");
+        Book book = new Book(2, "Book 1", "Fiction", 10.0f);
 
-        // Thêm DVD vào giỏ hàng
-        cart.addDigitalVideoDisc(dvd1);
-        cart.addDigitalVideoDisc(dvd2);
-        cart.addDigitalVideoDisc(dvd3);
+        // Add media to the cart
+        cart.addMedia(dvd);
+        cart.addMedia(cd);
+        cart.addMedia(book);
 
-        // In thông tin giỏ hàng
+        // Print the cart
         cart.print();
 
-        // Tìm kiếm DVD theo ID
-        int searchId = 2; // ID cần tìm
-        DigitalVideoDisc foundById = cart.searchById(searchId);
-        if (foundById != null) {
-            System.out.println("Doan Nhat Quang - 5911 - Found by ID: " + foundById.toString());
-        } else {
-            System.out.println("Doan Nhat Quang - 5911 - No DVD found with ID: " + searchId);
+        // Search and remove
+        Media found = cart.searchByTitle("Book 1");
+        if (found != null) {
+            cart.removeMedia(found);
         }
 
-        String searchTitle = "Star Wars"; 
-        DigitalVideoDisc foundByTitle = cart.searchByTitle(searchTitle);
-        if (foundByTitle != null) {
-            System.out.println("Doan Nhat Quang - 5911 - Found by Title: " + foundByTitle.toString());
-        } else {
-            System.out.println("Doan Nhat Quang - 5911 - No DVD found with title: " + searchTitle);
-        }
-        
+        // Print the cart after removal
+        cart.print();
     }
-    
 }

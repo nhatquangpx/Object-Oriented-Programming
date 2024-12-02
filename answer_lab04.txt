@@ -1,0 +1,19 @@
+1. Lớp nào nên implement interface Comparable?
+
+- Các lớp mà chúng ta muốn sắp xếp theo một quy tắc nhất định cần implement interface Comparable. Ví dụ, trong trường hợp này, lớp Media hoặc các lớp con của nó (như DigitalVideoDisc, CD, DVD, v.v.) nên implement Comparable<Media>. Điều này cho phép các đối tượng của lớp đó có thể so sánh với nhau để xác định thứ tự.
+
+2. Trong những lớp đó, chúng ta nên implement phương thức compareTo() như thế nào để phản ánh thứ tự mà chúng ta muốn?
+
+- Chúng ta sẽ override phương thức compareTo() trong các lớp để so sánh các thuộc tính của đối tượng. 
+- Ví dụ:
+ + Nếu chúng ta muốn so sánh Media theo tiêu đề và sau đó là giá (thứ tự tăng dần), chúng ta có thể so sánh theo tiêu đề trước (dùng compareTo() của chuỗi) và nếu tiêu đề giống nhau, ta sẽ so sánh giá (Float.compare()).
+ + Nếu chúng ta muốn sắp xếp DVD theo tiêu đề, độ dài giảm dần, và sau đó là giá, ta cần implement compareTo() theo cách ưu tiên độ dài giảm dần (thực hiện phép so sánh với độ dài ngược lại).
+
+3. Liệu chúng ta có thể có hai quy tắc sắp xếp (theo tiêu đề rồi giá, và theo giá rồi tiêu đề) nếu sử dụng phương thức Comparable không?
+
+- Khi sử dụng Comparable, chúng ta chỉ có thể xác định một quy tắc sắp xếp trong phương thức compareTo() của lớp. Điều này có nghĩa là chúng ta không thể có hai quy tắc sắp xếp khác nhau trong cùng một lớp Comparable.
+Tuy nhiên, nếu muốn sử dụng hai quy tắc sắp xếp khác nhau, ta sẽ cần tạo các lớp Comparator riêng biệt và sử dụng chúng trong các tình huống khác nhau (như cách làm với Collections.sort() khi sử dụng Comparator).
+
+4. Giả sử DVD có quy tắc sắp xếp khác với các loại media khác, cụ thể là theo tiêu đề, rồi độ dài giảm dần, rồi giá. Bạn sẽ sửa mã của mình như thế nào để cho phép điều này?
+
+- Để cho phép DVD có quy tắc sắp xếp riêng, ta cần kiểm tra xem đối tượng có phải là DVD hay không trong phương thức compareTo() và thực hiện quy tắc sắp xếp đặc biệt cho DVD. Điều này sẽ yêu cầu override lại phương thức compareTo() trong DigitalVideoDisc để xử lý cách so sánh riêng biệt cho DVD, như đã trình bày ở ví dụ ở câu trả lời trên.
