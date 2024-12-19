@@ -62,13 +62,22 @@ public abstract class Media {
 				", category = '" + category +  '\'' + 
 				", cost = '" + cost + '}' ;
 	}
-	public boolean equals(Object obj) { 		// Doan Nhat Quang - 5911
-        if (this == obj) return true; // Check reference equality
-        if (obj == null || getClass() != obj.getClass()) return false; // Check null and class type
+	@Override
+	public boolean equals(Object obj) {
+	    if (this == obj) {						// Doan Nhat Quang - 5911
+	        return true;
+	    }
+	    if (obj == null) {
+	        return false;
+	    }
+	    if (!(obj instanceof Media)) {
+	        return false;
+	    }
+	    Media otherMedia = (Media) obj;
+	    
+	    return this.getTitle() != null && this.getTitle().equals(otherMedia.getTitle());
+	}
 
-        Media media = (Media) obj; // Cast object to Media
-        return title != null && title.equalsIgnoreCase(media.getTitle()); // Compare titles
-    }
 	public static final Comparator<Media> COMPARE_BY_TITLE_COST =
 	        new MediaComparatorByTitleCost();
 	public static final Comparator<Media> COMPARE_BY_COST_TITLE =

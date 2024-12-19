@@ -1,5 +1,5 @@
 package hust.soict.dsai.aims.screen;
- 
+
 import hust.soict.dsai.aims.cart.Cart;
 import hust.soict.dsai.aims.media.*;
 import javafx.application.Platform;
@@ -7,9 +7,9 @@ import javafx.embed.swing.JFXPanel;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-
 import javax.swing.*;
 import java.io.IOException;
+
 
 public class CartScreen extends JFrame {
     private Cart cart;
@@ -21,7 +21,7 @@ public class CartScreen extends JFrame {
         this.add(fxPanel);
         this.setTitle("Doan Nhat Quang - 5911 - Cart");
         this.setVisible(true);
-        setSize(1100,768);
+        setSize(1100, 768);
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
@@ -36,5 +36,17 @@ public class CartScreen extends JFrame {
                 }
             }
         });
+    }
+
+    public static void main(String[] args) {
+        // Initialize JavaFX runtime
+        Platform.startup(() -> {});
+
+        // Create a sample Cart and populate it with Media items
+        Cart cart = new Cart();
+        cart.addMedia(new Book(1, "The Catcher in the Rye", "Fiction", 10.99f));
+
+        // Launch the CartScreen
+        SwingUtilities.invokeLater(() -> new CartScreen(cart));
     }
 }

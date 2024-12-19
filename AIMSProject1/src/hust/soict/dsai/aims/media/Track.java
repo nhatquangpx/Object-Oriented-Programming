@@ -1,5 +1,7 @@
 package hust.soict.dsai.aims.media;
 
+import hust.soict.dsai.aims.exception.PlayerException;
+
 public class Track implements Playable {
     // Fields to store track information
     private String title;
@@ -21,10 +23,13 @@ public class Track implements Playable {
         return length;
     }
 
-    // Implement play() from Playable interface
-    public void play() {
-        System.out.println("Doan Nhat Quang - 5911 - Playing Track: " + title);
-        System.out.println("Doan Nhat Quang - 5911 - Track length: " + length + " mins");
+    public void play() throws PlayerException {
+        if (this.getLength() > 0) {
+            System.out.println("Doan Nhat Quang - 5911 - Playing Track: " + title);
+            System.out.println("Doan Nhat Quang - 5911 - Track length: " + length + " mins");
+        } else {
+            throw new PlayerException("Quang - 5911 - ERROR: Track length is non-positive!");
+        }
     }
     public boolean equals(Object obj) {			// Doan Nhat Quang - 5911
         if (this == obj) return true; // Check reference equality

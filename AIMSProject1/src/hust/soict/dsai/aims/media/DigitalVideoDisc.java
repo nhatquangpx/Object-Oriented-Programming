@@ -1,5 +1,7 @@
 package hust.soict.dsai.aims.media;
 
+import hust.soict.dsai.aims.exception.PlayerException;
+
 public class DigitalVideoDisc extends Disc implements Playable {
 	
     private static int nbDigitalVideoDiscs = 0;
@@ -30,8 +32,13 @@ public class DigitalVideoDisc extends Disc implements Playable {
 
 
     // Implement play() from Playable interface
-    public void play() {
-        System.out.println("Doan Nhat Quang - 5911 - Playing DVD: " + getTitle());
-        System.out.println("Doan Nhat Quang - 5911 - DVD length: " + getLength() + " mins");
+	public void play() throws PlayerException {
+        if (this.getLength() > 0) {
+            // Play DVD logic here
+        	System.out.println("Doan Nhat Quang - 5911 - Playing DVD: " + getTitle());
+            System.out.println("Doan Nhat Quang - 5911 - DVD length: " + getLength() + " mins");
+        } else {
+            throw new PlayerException("Quang - 5911 - ERROR: DVD length is non-positive!");
+        }
     }
 }

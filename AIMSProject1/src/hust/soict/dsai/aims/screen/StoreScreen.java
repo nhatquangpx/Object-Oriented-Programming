@@ -7,8 +7,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
 
 public class StoreScreen extends JFrame {
     private Store store;
@@ -25,28 +23,22 @@ public class StoreScreen extends JFrame {
     JMenuBar createMenuBar() {
         JMenu menu = new JMenu("Quang - 5911 - Options");
         JMenu smUpdateStore = new JMenu("Quang - 5911 - Update Store");
-        smUpdateStore.add(new JMenuItem("Quang - 5911 - Add Book"));
+
+        JMenuItem addBook = new JMenuItem("Quang - 5911 - Add Book");
+        addBook.addActionListener(e -> new AddBookStoreScreen(store));
+        smUpdateStore.add(addBook);
 
         JMenuItem addCD = new JMenuItem("Quang - 5911 - Add CD");
+        addCD.addActionListener(e -> new AddCDStoreScreen(store));
         smUpdateStore.add(addCD);
-        addCD.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                AddCDStoreScreen popUp = new AddCDStoreScreen(store);
-            }
-        });
 
         JMenuItem addDVD = new JMenuItem("Quang - 5911 - Add DVD");
+        addDVD.addActionListener(e -> new AddDVDStoreScreen(store));
         smUpdateStore.add(addDVD);
-        addDVD.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                AddDVDStoreScreen popUp = new AddDVDStoreScreen(store);
-            }
-        });
+
         menu.add(smUpdateStore);
-        menu.add(new JMenuItem("Quang - 5911 - View store"));
-        menu.add(new JMenuItem("Quang - 5911 - View cart"));
+        menu.add(new JMenuItem("Quang - 5911 - View Store"));
+        menu.add(new JMenuItem("Quang - 5911 - View Cart"));
 
         JMenuBar menuBar = new JMenuBar();
         menuBar.setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -54,15 +46,16 @@ public class StoreScreen extends JFrame {
         return menuBar;
     }
 
+
     JPanel createHeader() {
         JPanel header = new JPanel();
         header.setLayout(new BoxLayout(header,BoxLayout.X_AXIS));
 
-        JLabel title = new JLabel("AIMS");
+        JLabel title = new JLabel("Doan Nhat Quang - 5911 - AIMS");
         title.setFont(new Font(title.getFont().getName(),Font.PLAIN,50));
         title.setForeground(Color.CYAN);
 
-        JButton cart1 = new JButton("View cart");
+        JButton cart1 = new JButton("Quang - 5911 - View cart");
         cart1.setPreferredSize(new Dimension(100,50));
         cart1.setMaximumSize(new Dimension(100,50));
         cart1.addActionListener(new ActionListener() {
@@ -79,28 +72,32 @@ public class StoreScreen extends JFrame {
         header.add(Box.createRigidArea(new Dimension(10,10)));
         return header;
     }
-    JPanel createCenter() {
+    public JPanel createCenter() {
         JPanel center = new JPanel();
         center.setLayout(new GridLayout(3, 3, 2, 2)); // GridLayout 3x3
         ArrayList<Media> mediaStore = store.getItemsInStore();
 
-        // Hiển thị tối đa 9 sản phẩm
         int maxItems = 9;
         for (int i = 0; i < maxItems; i++) {
             Media media;
             if (i < mediaStore.size()) {
-                // Lấy sản phẩm từ danh sách nếu tồn tại
                 media = mediaStore.get(i);
             } else {
-                // Tạo placeholder nếu không đủ sản phẩm
                 media = new DigitalVideoDisc("Placeholder", "No Category", "Unknown", 0, 0f);
             }
 
-            MediaStore cell = new MediaStore(media, cart);
-            center.add(cell);
+            if (media instanceof DigitalVideoDisc && media.getTitle().equals("Placeholder")) {
+                MediaStore cell = new MediaStore(media, cart, false); 
+                center.add(cell);
+            } else {
+                MediaStore cell = new MediaStore(media, cart, true);
+                center.add(cell);
+            }
         }
         return center;
     }
+
+
 
     public StoreScreen(Store store, Cart myCart) {
         this.store = store; 
@@ -131,13 +128,9 @@ public class StoreScreen extends JFrame {
 
         // Tạo CompactDisc thứ hai và thêm track
         ArrayList<Track> tracks2 = new ArrayList<>();
-        tracks2.add(new Track("Tobu - Candyland", 3));
-        tracks2.add(new Track("Niviro - You", 4));
-        tracks2.add(new Track("MBB - Beach", 2));
-        tracks2.add(new Track("Syn Cole - Gizmo", 4));
-        tracks2.add(new Track("Deamn - Sign", 4));
-        tracks2.add(new Track("MBB - Arrival", 3));
-        tracks2.add(new Track("EnV - Pneumatic", 5));
+        tracks2.add(new Track("New Era - A", 3));
+        tracks2.add(new Track("Bau troi moi - Dalab", 4));
+        tracks2.add(new Track("Giai dieu VN minh", 4));
         CompactDisc cd2 = new CompactDisc(5, "ABCD", "EFG", "Various artist", 37.25f, 20, "Unknown");
         for (Track track : tracks2) {
             cd2.addTrack(track);
@@ -166,75 +159,4 @@ public class StoreScreen extends JFrame {
         new StoreScreen(store, myCart);
     }
 
-
-    private class AddDVDStoreScreen extends JFrame {
-        public AddDVDStoreScreen(Store store) {
-            this.setLayout(new GridLayout(4, 2, 5, 5));
-            this.add(new JLabel("Quang - 5911 - Enter title: "));
-            TextField title = new TextField(10);
-            this.add(title);
-            this.add(new JLabel("Quang - 5911 - Enter category: "));
-            TextField category = new TextField(10);
-            this.add(category);
-            this.add(new JLabel("Quang - 5911 - Enter cost: "));
-            TextField cost = new TextField(10);
-            this.add(cost);
-
-            this.setTitle("Quang - 5911 - Add DVD");
-            this.setSize(300, 100);
-            JButton turnInBtn = new JButton("Quang - 5911 - Add");
-            this.add(turnInBtn);
-            turnInBtn.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                	DigitalVideoDisc dvd = new DigitalVideoDisc( title.getText(), category.getText(), "", 0, Float.parseFloat(cost.getText()));
-                    store.addMedia(dvd);
-                    cp.add(createCenter(), BorderLayout.CENTER);
-                    cp.revalidate();
-                    title.setText("");
-                    category.setText("");
-                    cost.setText("");
-                }
-            });
-            this.show();
-        }
-    }
-
-    private class AddCDStoreScreen extends JFrame {
-        public AddCDStoreScreen(Store store) {
-            this.setLayout(new GridLayout(7, 2, 5, 5));
-            this.add(new JLabel("Quang - 5911 - Enter title: "));
-            TextField title = new TextField(10);
-            this.add(title);
-            this.add(new JLabel("Quang - 5911 - Enter category: "));
-            TextField category = new TextField(10);
-            this.add(category);
-            this.add(new JLabel("Quang - 5911 - Enter cost: "));
-            TextField cost = new TextField(10);
-            this.add(cost);
-            this.add(new JLabel("Quang - 5911 - Enter artist: "));
-            TextField artist = new TextField(10);
-            this.add(artist);
-            this.setTitle("Quang - 5911 - Add CD");
-            this.add(new JLabel("Quang - 5911 - Number of tracks: "));
-            TextField numberOfTracks = new TextField(10);
-            this.add(numberOfTracks);
-            this.pack();
-            JButton turnInBtn = new JButton("Quang - 5911 - Add");
-            this.add(turnInBtn);
-            turnInBtn.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-
-                	CompactDisc cd = new CompactDisc(0,title.getText(), category.getText(), artist.getText(), Float.parseFloat(cost.getText()),0, ""  );
-                    cp.add(createCenter(), BorderLayout.CENTER);
-                    cp.revalidate();
-                    title.setText("");
-                    category.setText("");
-                    cost.setText("");
-                }
-            });
-            this.show();
-        }
-    }
 }

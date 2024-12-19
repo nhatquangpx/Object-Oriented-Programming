@@ -62,7 +62,7 @@ public class CartScreenController {
         colMediacategory.setCellValueFactory(new PropertyValueFactory<Media,String>("category"));
         colMediaCost.setCellValueFactory(new PropertyValueFactory<Media,Float>("cost"));
         tblMedia.setItems(FXCollections.observableList(this.cart.getItemsOrdered()));
-        tblMedia.setPlaceholder(new Label("No item in cart"));
+        tblMedia.setPlaceholder(new Label("Quang - 5911 - No item in cart"));
         btnPlay.setVisible(false);
         btnRemove.setVisible(false);
         btnRemove.setOnAction(new EventHandler<javafx.event.ActionEvent>() {
@@ -124,35 +124,46 @@ public class CartScreenController {
 
     @FXML
     void showFilterMedia(String t1) {
+        if (t1.isEmpty()) { 
+            tblMedia.setItems(FXCollections.observableList(cart.getItemsOrdered()));
+            return;
+        }
+
         if (filterCategory.getSelectedToggle() == radioBtnFilterTitle) {
-            ArrayList<Media> filterByTitle = new ArrayList<Media>();
+            ArrayList<Media> filterByTitle = new ArrayList<>();
             for (Media item : cart.getItemsOrdered()) {
-                if (item.getTitle().contains(t1)) {
+                if (item.getTitle().toLowerCase().contains(t1.toLowerCase())) { 
                     filterByTitle.add(item);
                 }
             }
             tblMedia.setItems(FXCollections.observableList(filterByTitle));
         } else if (filterCategory.getSelectedToggle() == radioBtnFilterId) {
-            ArrayList<Media> filterByID = new ArrayList<Media>();
-            for (Media item : cart.getItemsOrdered()) {
-                if (item.getId() == Integer.parseInt(t1)) {
-                    filterByID.add(item);
+            try {
+                int id = Integer.parseInt(t1); 
+                ArrayList<Media> filterByID = new ArrayList<>();
+                for (Media item : cart.getItemsOrdered()) {
+                    if (item.getId() == id) {
+                        filterByID.add(item);
+                    }
                 }
+                tblMedia.setItems(FXCollections.observableList(filterByID));
+            } catch (NumberFormatException e) {
+                tblMedia.setItems(FXCollections.observableList(new ArrayList<>())); 
             }
-            tblMedia.setItems(FXCollections.observableList(filterByID));
         }
     }
+
 
     @FXML
     void createPopUp() {
         Stage popupwindow =new Stage();
         popupwindow.initModality(Modality.APPLICATION_MODAL);
-        popupwindow.setTitle("Place order");
+        popupwindow.setTitle("Quang - 5911 - Place order");
 
-        Label label1 = new Label("You have place your order !");
+        Label label1 = new Label("Quang - 5911 - You have place your order !");
         label1.setFont(Font.font("Arial", FontWeight.BOLD,14));
-        Label label2 = new Label("Your bill total is " + Float.toString(cart.totalCost()) + "$");
-        Button button1= new Button("OK !");
+        Label label2 = new Label("Quang - 5911 - Your bill total is " + Float.toString(cart.totalCost()) + "$");
+        Button button1= new Button("Quang - 5911 - OK !");
         label2.setTextFill(Color.RED);
         button1.setOnAction(_ -> popupwindow.close());
         VBox layout= new VBox(10);

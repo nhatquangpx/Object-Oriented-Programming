@@ -1,6 +1,7 @@
 package hust.soict.dsai.aims;
 
 import hust.soict.dsai.aims.cart.Cart;
+import hust.soict.dsai.aims.exception.PlayerException;
 import hust.soict.dsai.aims.media.*;
 import hust.soict.dsai.aims.store.Store;
 
@@ -11,7 +12,7 @@ public class Aims {
     private static final Cart cart = new Cart();
     private static final Scanner scanner = new Scanner(System.in);
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws PlayerException {
         // Khởi tạo dữ liệu mẫu cho Store
         initializeStore();
 
@@ -41,7 +42,7 @@ public class Aims {
         System.out.print("Doan Nhat Quang - 5911 - Please choose a number: 0-1-2-3: ");
     }
 
-    private static void viewStore() {
+    private static void viewStore() throws PlayerException {
         System.out.println("\nDoan Nhat Quang - 5911 - STORE INVENTORY:");
         store.printStore();
         int choice;
@@ -72,7 +73,7 @@ public class Aims {
         System.out.print("Doan Nhat Quang - 5911 - Please choose a number: 0-1-2-3-4: ");
     }
 
-    private static void seeMediaDetails() {
+    private static void seeMediaDetails() throws PlayerException {
         System.out.print("Doan Nhat Quang - 5911 - Enter the title of the media: ");
         String title = scanner.nextLine();
         Media media = store.searchByTitle(title);
@@ -85,7 +86,7 @@ public class Aims {
         }
     }
 
-    private static void mediaDetailsMenu(Media media) {
+    private static void mediaDetailsMenu(Media media) throws PlayerException {
         int choice;
         do {
             System.out.println("Doan Nhat Quang - 5911 - Options: ");
@@ -127,7 +128,7 @@ public class Aims {
         }
     }
 
-    private static void playMedia() {
+    private static void playMedia() throws PlayerException {
         System.out.print("Doan Nhat Quang - 5911 - Enter the title of the media to play: ");
         String title = scanner.nextLine();
         Media media = store.searchByTitle(title);
@@ -177,7 +178,7 @@ public class Aims {
         }
     }
 
-    private static void seeCurrentCart() {
+    private static void seeCurrentCart() throws PlayerException {
         System.out.println("\nDoan Nhat Quang - 5911 - CURRENT CART:");
         cart.print();
         int choice;
@@ -222,7 +223,7 @@ public class Aims {
         }
     }
 
-    private static void playMediaFromCart() {
+    private static void playMediaFromCart() throws PlayerException {
         System.out.print("Doan Nhat Quang - 5911 - Enter the title of the media to play: ");
         String title = scanner.nextLine();
         Media media = cart.searchByTitle(title);

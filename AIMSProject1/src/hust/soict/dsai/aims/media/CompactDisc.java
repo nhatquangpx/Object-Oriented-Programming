@@ -1,6 +1,9 @@
 package hust.soict.dsai.aims.media;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+
+import hust.soict.dsai.aims.exception.PlayerException;
 
 public class CompactDisc extends Disc implements Playable {
     // Fields
@@ -13,7 +16,7 @@ public class CompactDisc extends Disc implements Playable {
         this.artist = artist;			// Doan Nhat Quang - 5911
     }
 
-    // Getter for artist
+	// Getter for artist
     public String getArtist() {
         return artist;
     }
@@ -47,14 +50,24 @@ public class CompactDisc extends Disc implements Playable {
         return totalLength;
     }
 
-    // Implement play() from Playable interface
-    public void play() {
-        System.out.println("Doan Nhat Quang - 5911 - Playing Compact Disc: " + getTitle());
-        System.out.println("Doan Nhat Quang - 5911 - Artist: " + artist);
-        for (Track track : tracks) {
-            track.play(); // Call play() of each track
+    public void play() throws PlayerException {
+        if (this.getLength() > 0) {
+            // Play all tracks in the CD
+            Iterator<Track> iter = tracks.iterator();
+            Track nextTrack;
+            while (iter.hasNext()) {
+                nextTrack = iter.next();
+                try {
+                    nextTrack.play(); // Try to play each track
+                } catch (PlayerException e) {
+                    System.err.println(e.getMessage());
+                    // Continue playing other tracks, or throw PlayerException if required
+                    throw e;
+                }
+            }
+        } else {
+            throw new PlayerException("Quang - 5911 - ERROR: CD length is non-positive!");
         }
-        System.out.println("Doan Nhat Quang - 5911 - Total CD length: " + getLength() + " mins");
     }
 
 	public ArrayList<Track> getTracks() {
